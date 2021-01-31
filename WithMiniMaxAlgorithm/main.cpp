@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
 int main() {
-	mro::Game g(22, 2, 10);
+	mro::Game g(16, 0, 9);
 	return 0;
 }

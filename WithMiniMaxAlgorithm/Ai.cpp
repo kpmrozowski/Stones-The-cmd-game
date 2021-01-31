@@ -1,11 +1,12 @@
+#include <iostream>
 #include "Ai.hpp"
 
 namespace mro {
-	Ai::Ai(std::vector<int>& vv, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv) {}
+	Ai::Ai() {}
 
 	bool Ai::win(std::vector<int>& win, std::vector<int>& lose, std::vector<int>& vv) {
 		bool a = win.size() + win.size() == vv.size();
-		bool b = std::accumulate(win.begin(), win.end(), 0) > std::accumulate(lose.begin(), lose.end(), 0);
+		bool b = std::accumulate(win.begin(), win.end(), 0) < std::accumulate(lose.begin(), lose.end(), 0);
 		if(a && b)
 			return true;
 		else
@@ -21,51 +22,56 @@ namespace mro {
 		return false;
 	}
 
-	Move Ai::minimax(std::vector<int>& vai, std::vector<int>& vheu, std::vector<int>& vv, bool maximizing_heu, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv) {
+	Move Ai::minimax(std::vector<int>& vai, std::vector<int>& vheu, std::vector<int>& vv, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv, bool maximizing_player) {
 		Move best_move;
+		bool side = true;
 		if(win(vai, vheu, vv) || win(vheu, vai, vv)) {
 			// If maximizing_player wins we can return -1
 			//		and if maximizing_player loses we
 			//		returns 1;
-			if(maximizing_heu) {
+			if(win(vheu, vai, vv)) {
 				best_move.score = -1;
-			} else {
+				//std::cout << "\nWin(vheu)\nBestMove: " << (best_move.side == 0 ? "L" : "R");
+				return best_move;
+			} 
+			if(win(vai, vheu, vv)) {
 				best_move.score = 1;
+				//std::cout << "\nWin(vai)\nBestMove: " << (best_move.side == 0 ? "L" : "R");
+				return best_move;
 			}
-			return best_move;
 		} else if(tie(vheu, vai, vv)) {
 			best_move.score = 0;
+			//std::cout << "\nTie!\nBestMove: " << (best_move.side == 0 ? "L" : "R");
 			return best_move;
 		}
 
-		best_move.score = maximizing_heu ? -2 : 2;
+		best_move.score = maximizing_player ? -2 : 2;
 		// -2 and 2 acts just like as -inf and inf
-
-		if((vai.size() + vheu.size()) < vv.size()) {
-			//	Ai tries to maximize it's score and player is tring to minimize AI's score
-			for(int i = 0; i <= 1; i++) {
-				if((vai.size() + vheu.size()) < vv.size()){
-					if(i) {
-						vai.push_back(*itBegvv);
-						itBegvv++;
-					} else {
-						vai.push_back(*itEndvv);
-						itEndvv--;
-					}
+		//	Ai tries to maximize it's score and player is tring to minimize AI's score
+		for(int i = 0; i <= 1; i++) {
+			if((vai.size() + vheu.size()) <= vv.size() && itEndvv != itBegvv) {
+				side = (i == 0) ? false : true;
+				if(side) {
+					vai.push_back(*itBegvv);
+					itBegvv++;
+				} else {
+					vai.push_back(*itEndvv);
+					itEndvv--;
+				}
 				//print();	uncomment to see AI's analizes
-				Move board_state = minimax(vai, vheu, vv, !maximizing_heu, itBegvv, itEndvv);
-				if(maximizing_heu) {
+				Move board_state = minimax(vai, vheu, vv, itBegvv, itEndvv, !maximizing_player);
+				if(maximizing_player) {
 					// if we search for the worst move for player:
 					if(board_state.score > best_move.score) {
 						best_move.score = board_state.score;
-						best_move.side = i;
+						best_move.side = side;
 					}
 				} else {
 					//	if the move is better than the move we'd already found or if we haven't found it yet:
 					if(board_state.score < best_move.score) {
 						// best move is the found one:
 						best_move.score = board_state.score;
-						best_move.side = i;
+						best_move.side = side;
 					}
 				}
 				// reset analised pole:
@@ -75,7 +81,6 @@ namespace mro {
 				} else {
 					vai.pop_back();
 					itEndvv++;
-				}
 				}
 			}
 		}

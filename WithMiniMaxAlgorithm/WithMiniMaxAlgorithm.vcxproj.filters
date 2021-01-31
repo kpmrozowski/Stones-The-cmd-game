@@ -33,4 +33,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Stones-The-cmd-game\Stones-The-cmd-game\WithMiniMaxAlgorithm\.clang-format" />
+  </ItemGroup>
 </Project>

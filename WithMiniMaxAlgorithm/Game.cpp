@@ -54,6 +54,7 @@ namespace mro {
 					std::cin.ignore(256, '\n'); // ignore the line change
 					player_move(vai, vheu, vv, vleft, maximizing_heu, itBegvv, itEndvv);
 				}
+				std::cout<<"ok";
 				bool left_number;
 				left_number = a ? true : false;
 

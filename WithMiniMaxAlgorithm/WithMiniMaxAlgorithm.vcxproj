@@ -131,6 +131,9 @@
     <ClInclude Include="Ai.hpp" />
     <ClInclude Include="Game.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Stones-The-cmd-game\Stones-The-cmd-game\WithMiniMaxAlgorithm\.clang-format" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

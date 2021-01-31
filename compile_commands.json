@@ -1,0 +1,19 @@
+﻿[
+  {
+    "directory": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/",
+    "command": "\"clang++.exe\" -x c++ \"C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/main.cpp\" -std=c++14 -Wall -fms-compatibility-version=19.10 -Wmicrosoft -Wno-invalid-token-paste -Wno-unknown-pragmas -Wno-unused-value -fsyntax-only \"-D_MT\" \"-D_DLL\" \"-D_DEBUG_FUNCTIONAL_MACHINERY\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/atlmfc/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/VS/include\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/winrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/cppwinrt\"",
+    "file": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/main.cpp"
+  }
+  ,
+  {
+    "directory": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/",
+    "command": "\"clang++.exe\" -x c++ \"C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/Ai.cpp\" -std=c++14 -Wall -fms-compatibility-version=19.10 -Wmicrosoft -Wno-invalid-token-paste -Wno-unknown-pragmas -Wno-unused-value -fsyntax-only \"-D_MT\" \"-D_DLL\" \"-D_DEBUG_FUNCTIONAL_MACHINERY\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/atlmfc/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/VS/include\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/winrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/cppwinrt\"",
+    "file": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/Ai.cpp"
+  }
+  ,
+  {
+    "directory": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/",
+    "command": "\"clang++.exe\" -x c++ \"C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/Game.cpp\" -std=c++14 -Wall -fms-compatibility-version=19.10 -Wmicrosoft -Wno-invalid-token-paste -Wno-unknown-pragmas -Wno-unused-value -fsyntax-only \"-D_MT\" \"-D_DLL\" \"-D_DEBUG_FUNCTIONAL_MACHINERY\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/atlmfc/include\" -isystem\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/VS/include\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/winrt\" -isystem\"C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/cppwinrt\"",
+    "file": "C:/Users/kpmro/Source/Repos/kpmrozowski/Stones-The-cmd-game/WithMiniMaxAlgorithm/Game.cpp"
+  }
+]

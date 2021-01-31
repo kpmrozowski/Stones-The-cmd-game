@@ -44,7 +44,7 @@ namespace mro {
 		if((vai.size() + vheu.size()) < vv.size()) {
 			//	Ai tries to maximize it's score and player is tring to minimize AI's score
 			for(int i = 0; i <= 1; i++) {
-				if((vai.size() + vheu.size()) < vv.size())
+				if((vai.size() + vheu.size()) < vv.size()){
 					if(i) {
 						vai.push_back(*itBegvv);
 						itBegvv++;
@@ -75,6 +75,7 @@ namespace mro {
 				} else {
 					vai.pop_back();
 					itEndvv++;
+				}
 				}
 			}
 		}

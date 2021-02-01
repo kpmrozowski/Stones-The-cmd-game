@@ -6,7 +6,7 @@ namespace mro {
 		vv = make_random_vector(size, min, max);
 		vleft = vv;
 		itBegvv = vv.begin();
-		itEndvv = vv.end() - 1;
+		itEndvv = vv.end();
 		Ai ai;
 		this->Run();
 	}
@@ -42,60 +42,58 @@ namespace mro {
 		while(true) {
 			char imput;
 			try {
-				if(*itEndvv != *itBegvv) {
-					std::cout << "\nEnter a number you want to take (" << *itBegvv << " or " << *itEndvv << "): ";
+				if(*(itEndvv - 1) != *itBegvv) {
+					std::cout << "\nEnter a number you want to take (" << *itBegvv << " or " << *(itEndvv - 1) << "): ";
 					std::cin >> imput;
 					int cell = imput - '0';
 					bool a = bool(cell == *itBegvv);
-					bool b = bool(cell == *itEndvv);
+					bool b = bool(cell == *(itEndvv - 1));
 					// cin.fail() --> fail if type is not correct
 					if(std::cin.fail() || (static_cast<int>(cell) != cell) || !(a || b)) {
 						std::cout << "\nWrong input. Please enter one integer\n";
 						std::cin.clear();
 						std::cin.ignore(256, '\n'); // ignore the line change
-						player_move(vai, vheu, vv, vleft, itBegvv, itEndvv);
-					}
-					bool left_number;
-					left_number = a ? true : false;
+					} else {
+						bool left_number;
+						left_number = a ? true : false;
 
-					if((vai.size() + vheu.size()) != vv.size()) {
-						if(left_number) {
-							vheu.push_back(*itBegvv);
-							itBegvv++;
-							if(vleft.size() > 0)
+						if((vai.size() + vheu.size()) != vv.size() && vleft.size() > 0) {
+							if(left_number) {
+								vheu.push_back(*itBegvv);
+								itBegvv++;
 								vleft.erase(vleft.begin());
-						} else {
-							vheu.push_back(*itEndvv);
-							itEndvv--;
-							vleft.pop_back();
+							} else {
+								itEndvv--;
+								vheu.push_back(*itEndvv);
+								vleft.pop_back();
+							}
+							break;
 						}
-						break;
 					}
 				} else {
-					std::cout << "\nEnter L or R";
+					std::cout << "\nEnter L or R: ";
 					std::cin >> imput;
 					// cin.fail() --> fail if type is not correct
 					if(std::cin.fail() || (imput != 'L' && imput != 'R' && imput != 'l' && imput != 'r')) {
 						std::cout << "\nWrong input. Please enter one integer\n";
 						std::cin.clear();
 						std::cin.ignore(256, '\n'); // ignore the line change
-						player_move(vai, vheu, vv, vleft, itBegvv, itEndvv);
-					}
-					bool left_number;
-					left_number = (imput == 'L') ? true : false;
+					} else {
+						bool left_number;
+						left_number = (imput == 'L' || imput == 'l') ? true : false;
 
-					if((vai.size() + vheu.size()) != vv.size()) {
-						if(left_number) {
-							vheu.push_back(*itBegvv);
-							itBegvv++;
-							if(vleft.size() > 0)
+						if((vai.size() + vheu.size()) != vv.size() && (imput == 'L' || imput == 'R' || imput == 'l' || imput == 'r') && vleft.size() > 0) {
+							if(left_number) {
+								vheu.push_back(*itBegvv);
+								itBegvv++;
 								vleft.erase(vleft.begin());
-						} else {
-							vheu.push_back(*itEndvv);
-							itEndvv--;
-							vleft.pop_back();
+							} else {
+								itEndvv--;
+								vheu.push_back(*itEndvv);
+								vleft.pop_back();
+							}
+							break;
 						}
-						break;
 					}
 				}
 			} catch(std::exception& e) {
@@ -104,30 +102,26 @@ namespace mro {
 		}
 	}
 
-	void Game::computer_move(std::vector<int>& vai, std::vector<int>& vheu, std::vector<int>& vv, std::vector<int>& vleft, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv) {
-		Move best_move = ai.minimax(vai, vheu, vv, itBegvv, itEndvv);
-		if(best_move.side) {
-			vai.push_back(*itBegvv);
-			if(vleft.size() > 0)
-				vleft.erase(vleft.begin());
-			itBegvv++;
-		} else {
-			vai.push_back(*itEndvv);
-			vleft.pop_back();
-			itEndvv--;
-		}
-	}
-
 	void Game::Run() {
 		int player, computer;
 		char imput{};
-
+		vleft = vv;
+		itBegvv = vv.begin();
+		itEndvv = vv.end();
+		vheu = std::vector<int>(0);
+		vai = std::vector<int>(0);
+		std::cout << "Generated vector: ";
+		print(vv);
 		while(true) {
-			std::cout << "Wanna begin (y or n)? ";
+			std::cout << "\nWanna begin (y or n or c)? ";
 			std::cin >> imput;
-			if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N') {
+			if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
 				break;
 			}
+		}
+		if(imput == 'c') {
+			Run();
+			return;
 		}
 		if(imput == 'y' || imput == 'Y')
 			player = 1;
@@ -139,12 +133,13 @@ namespace mro {
 			std::cout << "Last stones: ";
 			print(vleft);
 			std::cout << "\nComputer is making a move...";
-			computer_move(vai, vheu, vv, vleft, itBegvv, itEndvv);
+			ai.computer_move(vai, vheu, vv, vleft, itBegvv, itEndvv, true);
 			std::cout << "\nComputer stones: ";
 			print(vai);
 		}
 
 		// main game loop:
+		std::cout << "\n## Entering main loop ## ";
 		while(true) {
 			std::cout << "Last stones: ";
 			print(vleft);
@@ -157,18 +152,56 @@ namespace mro {
 				print(vheu);
 				std::cout << "\nComputer looses!\nScore: " << std::accumulate(vai.begin(), vai.end(), 0) << "\n vai: ";
 				print(vai);
-				return;
-			} else if(ai.tie(vheu, vai, vv)) {
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
+			}
+			if(ai.win(vai, vheu, vv)) {
+				std::cout << "\nComputer wins!\nScore: " << std::accumulate(vai.begin(), vai.end(), 0) << "\n vai: ";
+				print(vai);
+				std::cout << "\nPlayer looses!\nScore: " << std::accumulate(vheu.begin(), vheu.end(), 0) << "\nvheu: ";
+				print(vheu);
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
+			}
+			if(ai.tie(vheu, vai, vv)) {
 				std::cout << "\nTie!";
 				std::cout << "\nComputer score: " << std::accumulate(vai.begin(), vai.end(), 0) << "\n vai: ";
 				print(vai);
 				std::cout << "\nPlayer score: " << std::accumulate(vheu.begin(), vheu.end(), 0) << "\nvheu: ";
 				print(vheu);
-				return;
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
 			}
 
 			std::cout << "Computer is making a move...";
-			computer_move(vai, vheu, vv, vleft, itBegvv, itEndvv);
+			ai.computer_move(vai, vheu, vv, vleft, itBegvv, itEndvv, true);
 			std::cout << "\nComputer stones: ";
 			print(vai);
 
@@ -177,14 +210,52 @@ namespace mro {
 				print(vai);
 				std::cout << "\nPlayer looses!\nScore: " << std::accumulate(vheu.begin(), vheu.end(), 0) << "\nvheu: ";
 				print(vheu);
-				return;
-			} else if(ai.tie(vai, vheu, vv)) {
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
+			}
+			if(ai.win(vheu, vai, vv)) {
+				std::cout << "\nPlayer wins!\nScore: " << std::accumulate(vheu.begin(), vheu.end(), 0) << "\nvheu: ";
+				print(vheu);
+				std::cout << "\nComputer looses!\nScore: " << std::accumulate(vai.begin(), vai.end(), 0) << "\n vai: ";
+				print(vai);
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
+			}
+			if(ai.tie(vai, vheu, vv)) {
 				std::cout << "\nTie!";
 				std::cout << "\nComputer score: " << std::accumulate(vai.begin(), vai.end(), 0) << "\n vai: ";
 				print(vai);
 				std::cout << "\nPlayer score: " << std::accumulate(vheu.begin(), vheu.end(), 0) << "\nvheu: ";
 				print(vheu);
-				return;
+				while(true) {
+					std::cout << "\nAgain (y or n)? ";
+					std::cin >> imput;
+					if(imput == 'y' || imput == 'n' || imput == 'Y' || imput == 'N' || imput == 'c') {
+						break;
+					}
+				}
+				if(imput == 'y' || imput == 'Y')
+					Run();
+				if(imput == 'n' || imput == 'N')
+					return;
 			}
 		}
 	}

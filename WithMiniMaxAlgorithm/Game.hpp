@@ -16,7 +16,6 @@ namespace mro {
 		std::vector< int > make_random_vector(size_t size, int min_value, int max_value);
 		void print(std::vector< int > wektor);
 		void player_move(std::vector<int>& vai, std::vector<int>& vheu, std::vector<int>& vv, std::vector<int>& vleft, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv);
-		void computer_move(std::vector<int>& vai, std::vector<int>& vheu, std::vector<int>& vv, std::vector<int>& vleft, std::vector<int>::iterator& itBegvv, std::vector<int>::iterator& itEndvv);
 
 		bool maximizing_player;
 		std::vector<int> vv;
